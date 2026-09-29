@@ -38,5 +38,6 @@ class Program
 
         Console.WriteLine("\n\nМассив индексов (по возрастанию элементов):");
         foreach (var idx in indices) Console.Write(idx + " ");
+        Console.ReadKey();
     }
 }

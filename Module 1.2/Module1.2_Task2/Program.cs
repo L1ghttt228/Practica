@@ -26,5 +26,6 @@ class Program
         // Итерация по коллекции для вывода
         foreach (int num in array)
             Console.Write(num + " "); // Оператор '+' выполняет конкатенацию строк
+        Console.ReadKey();
     }
 }

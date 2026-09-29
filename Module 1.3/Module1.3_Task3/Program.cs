@@ -57,5 +57,6 @@ class Program
             for (int j = 0; j < n; j++) Console.Write($"{matrix[i, j],5} ");
             Console.WriteLine($" | Сумма = {rowSums[i]}");
         }
+        Console.ReadKey();
     }
 }

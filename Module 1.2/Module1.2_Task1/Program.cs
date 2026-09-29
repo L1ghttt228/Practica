@@ -34,5 +34,6 @@ class Program
         // Вывод результатов
         foreach (double item in array)
             Console.Write($"{item:F2} "); // Форматирование числа до 2 знаков после запятой
+        Console.ReadKey();
     }
 }

@@ -12,7 +12,7 @@ class Program
         Random rnd = new Random();
         string vowels = "аеёиоуыэюя"; // Строка-эталон для проверки гласных
 
-        // Uенерация букв
+        // Генерация букв
         for (int i = 0; i < k; i++)
             // (char) — явное приведение случайного целого кода символа Unicode к типу char
             source[i] = (char)rnd.Next('а', 'я' + 1);
@@ -32,5 +32,6 @@ class Program
 
         Console.WriteLine("Исходный: " + string.Join(" ", source));
         Console.WriteLine("Согласные: " + string.Join(" ", consonants));
+        Console.ReadKey(); // Ожидание нажатия клавиши перед завершением программы
     }
 }

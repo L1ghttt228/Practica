@@ -29,5 +29,6 @@ class Program
         Console.WriteLine($"Элементов: {resultList.Count}");
         foreach (int item in resultList) Console.Write(item + " ");
         Console.WriteLine($"\nИтоговая сумма: {currentSum}");
+        Console.ReadKey();
     }
 }

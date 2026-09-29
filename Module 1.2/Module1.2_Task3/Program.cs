@@ -36,5 +36,6 @@ class Program
 
             currentNumber++; // Переход к следующему проверяемому числу
         }
+        Console.ReadKey();
     }
 }

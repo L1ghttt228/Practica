@@ -32,5 +32,6 @@ class Program
         // Проход строго от границы start до границы end включительно
         for (int i = start; i <= end; i++)
             Console.Write(array[i] + " ");
+        Console.ReadKey();
     }
 }
