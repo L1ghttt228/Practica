@@ -2,31 +2,29 @@
 
 namespace Task5Events
 {
-    // Класс с данными события
+    // класс TemperatureChangedEventArgs наследует EventArgs и хранит данные события
     class TemperatureChangedEventArgs : EventArgs
     {
         public double Temperature { get; private set; }
 
-        // Конструктор данных события
         public TemperatureChangedEventArgs(double temperature)
         {
             Temperature = temperature;
         }
     }
 
-    // Класс датчика температуры
+    // класс TemperatureSensor: генерирует событие изменения температуры
     class TemperatureSensor
     {
-        // event — событие для уведомления подписчиков
-        // Пустой делегат — отсутствие ошибки при отсутствии подписчиков
+        // событие для уведомления подписчиков; пустой делегат предотвращает ошибку при отсутствии подписчиков
         public event EventHandler<TemperatureChangedEventArgs> TemperatureChanged = delegate { };
 
         private double currentTemperature;
 
-        // Смена температуры
+        // метод изменяет температуру и создаёт событие
         public void SetTemperature(double temperature)
         {
-            // Если температура не меняется, создание события не выполняется
+            // если температура не изменилась, событие не генерируется
             if (Math.Abs(currentTemperature - temperature) < 1e-9)
             {
                 Console.WriteLine($"Температура {temperature} не изменилась. Событие не создаётся.");
@@ -36,47 +34,40 @@ namespace Task5Events
             currentTemperature = temperature;
             Console.WriteLine($"Датчик: температура стала {temperature}");
 
-            // Вызов события
-            // Все подписанные методы будут выполнены
+            // вызов события: выполняются все методы, подписанные на TemperatureChanged
             TemperatureChanged(this, new TemperatureChangedEventArgs(temperature));
         }
     }
 
-    // Класс термостата
+    // класс Thermostat: подписывается на событие датчика и реагирует на температуру
     class Thermostat
     {
-        // Порог температуры для отопления
         private double threshold = 20.0;
-
-        // Флаг состояния отопления
         private bool heatingOn = false;
 
-        // Подписка на событие датчика
+        // метод подписывает термостат на событие датчика
         public void Subscribe(TemperatureSensor sensor)
         {
-            // += — добавление метода в обработчики события
+            // оператор += добавляет метод в список обработчиков события
             sensor.TemperatureChanged += HandleTemperatureChanged;
         }
 
-        // Обработчик события
-        // Реакция термостата на смену температуры
+        // метод-обработчик события: вызывается автоматически при генерации события датчиком
         private void HandleTemperatureChanged(object sender, TemperatureChangedEventArgs e)
         {
             Console.WriteLine($"Термостат: получена температура {e.Temperature:F1}");
 
-            // Если температура ниже порога и отопление выключено, включение отопления
+            // логика включения или выключения отопления в зависимости от порога
             if (e.Temperature < threshold && !heatingOn)
             {
                 heatingOn = true;
                 Console.WriteLine("Термостат: отопление включено.");
             }
-            // Если температура выше или равна порогу и отопление включено, выключение отопления
             else if (e.Temperature >= threshold && heatingOn)
             {
                 heatingOn = false;
                 Console.WriteLine("Термостат: отопление выключено.");
             }
-            // Если смена состояния не требуется
             else
             {
                 Console.WriteLine("Термостат: состояние отопления не меняется.");
@@ -88,20 +79,15 @@ namespace Task5Events
     {
         static void Main(string[] args)
         {
-            // Создание датчика
             TemperatureSensor sensor = new TemperatureSensor();
-
-            // Создание термостата
             Thermostat thermostat = new Thermostat();
 
-            // Подписка термостата на событие датчика
             thermostat.Subscribe(sensor);
 
-            // Смена температуры и проверка события
-            sensor.SetTemperature(18.0); // Включение отопления
-            sensor.SetTemperature(28.0); // Выключение отопления
-            sensor.SetTemperature(20.0); // Включение отопления
-            sensor.SetTemperature(20.0); // Если температура не меняется, событие не создаётся
+            sensor.SetTemperature(18.0);
+            sensor.SetTemperature(28.0);
+            sensor.SetTemperature(20.0);
+            sensor.SetTemperature(20.0);
 
             Console.ReadKey();
         }

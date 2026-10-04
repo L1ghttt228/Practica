@@ -2,99 +2,90 @@
 
 namespace Task1Person
 {
-    // class — шаблон для создания объекта
+    // объявление класса Person: шаблон для создания объектов, описывающих человека
     class Person
     {
-        // private — доступ только внутри класса
-        private string name;
-        private int age;
-        private string address;
+        private string name; // закрытое поле имени, доступное только внутри класса
+        private int age; // закрытое поле возраста
+        private string address; // закрытое поле адреса
 
-        // Конструктор — инициализация объекта при создании через new
+        // конструктор вызывается оператором new при создании объекта
         public Person(string name, int age, string address)
         {
-            // this — текущий объект
-            this.name = name;
+            this.name = name; // this.name — поле объекта, оператор = записывает в него значение параметра name
             this.age = age;
             this.address = address;
         }
 
-        // Установка имени
+        // метод устанавливает имя, принимает строку и не возвращает значение
         public void SetName(string name)
         {
             this.name = name;
         }
 
-        // Получение имени
+        // метод возвращает имя, не принимает параметров
         public string GetName()
         {
             return name;
         }
 
-        // Установка возраста
-        // Если возраст отрицательный, смена значения не выполняется
+        // метод устанавливает возраст с предварительной проверкой значения
         public void SetAge(int age)
         {
+            // оператор if проверяет условие: если возраст меньше нуля, выполняется блок кода
             if (age < 0)
             {
                 Console.WriteLine("Ошибка: возраст не может быть отрицательным.");
-                return; // завершение метода
+                return; // оператор return завершает выполнение метода, смена значения не выполняется
             }
 
             this.age = age;
         }
 
-        // Получение возраста
+        // метод возвращает возраст
         public int GetAge()
         {
-            return age;
+            return age; 
         }
 
-        // Установка адреса
+        // метод устанавливает адрес
         public void SetAddress(string address)
         {
             this.address = address;
         }
 
-        // Получение адреса
+        // метод возвращает адрес
         public string GetAddress()
         {
-            return address;
+            return address; 
         }
 
-        // Вывод информации о человеке
+        // метод выводит информацию о человеке в консоль
         public void PrintInfo()
         {
-            Console.WriteLine($"Имя: {name}, возраст: {age}, адрес: {address}");
+            Console.WriteLine($"Имя: {name}, возраст: {age}, адрес: {address}"); 
         }
     }
 
     class Program
     {
-        // Main — точка входа в программу
         static void Main(string[] args)
         {
-            // Создание объекта класса Person
-            Person person1 = new Person("Иван Иванов", 20, "Минск");
+            Person person1 = new Person("Иван Иванов", 20, "Минск"); // оператор new создаёт объект класса Person и вызывает его конструктор
+            person1.PrintInfo(); 
 
-            // Вызов метода объекта
-            person1.PrintInfo();
-
-            // Смена возраста и адреса
-            person1.SetAge(21);
-            person1.SetAddress("Санкт-Петербург");
+            person1.SetAge(21); 
+            person1.SetAddress("Санкт-Петербург"); 
 
             Console.WriteLine("После изменений:");
-            person1.PrintInfo();
+            person1.PrintInfo(); 
 
-            // Создание второго объекта
-            Person person2 = new Person("Анна Петрова", 23, "Орша");
-            person2.PrintInfo();
+            Person person2 = new Person("Анна Петрова", 23, "Орша"); 
+            person2.PrintInfo(); 
 
-            // Если возраст отрицательный, смена значения не выполняется
-            person2.SetAge(42);
+            person2.SetAge(42); 
 
-            Console.ReadKey();
+            Console.ReadKey(); // ожидание нажатия любой клавиши, чтобы окно консоли не закрылось
         }
     }
 }

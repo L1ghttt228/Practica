@@ -2,14 +2,12 @@
 
 namespace Task4Interface
 {
-    // interface — контракт для классов
-    // Классы обязаны реализовать метод Draw
     interface IDrawable
     {
         void Draw();
     }
 
-    // Реализация интерфейса классом Circle
+    // класс Circle реализует интерфейс IDrawable
     class Circle : IDrawable
     {
         private double radius;
@@ -19,14 +17,14 @@ namespace Task4Interface
             this.radius = radius;
         }
 
-        // Реализация метода интерфейса
+        // реализация метода интерфейса для круга
         public void Draw()
         {
             Console.WriteLine($"Рисуется круг радиуса {radius}");
         }
     }
 
-    // Реализация интерфейса классом Rectangle
+    // класс Rectangle реализует интерфейс IDrawable
     class Rectangle : IDrawable
     {
         private double width;
@@ -38,14 +36,14 @@ namespace Task4Interface
             this.height = height;
         }
 
-        // Реализация метода интерфейса
+        // реализация метода интерфейса для прямоугольника
         public void Draw()
         {
             Console.WriteLine($"Рисуется прямоугольник {width} x {height}");
         }
     }
 
-    // Реализация интерфейса классом Triangle
+    // класс Triangle реализует интерфейс IDrawable
     class Triangle : IDrawable
     {
         private double sideA;
@@ -59,7 +57,7 @@ namespace Task4Interface
             this.sideC = sideC;
         }
 
-        // Реализация метода интерфейса
+        // реализация метода интерфейса для треугольника
         public void Draw()
         {
             Console.WriteLine($"Рисуется треугольник со сторонами {sideA}, {sideB}, {sideC}");
@@ -70,7 +68,7 @@ namespace Task4Interface
     {
         static void Main(string[] args)
         {
-            // Массив объектов, реализующих интерфейс
+            // массив интерфейсного типа хранит объекты разных классов
             IDrawable[] objects = new IDrawable[]
             {
                 new Circle(10.0),
@@ -78,12 +76,12 @@ namespace Task4Interface
                 new Triangle(2.0, 3.0, 4.0)
             };
 
-            // foreach — перебор объектов массива
-            // Полиморфизм: вызов Draw у разных объектов через один тип
+            // цикл foreach перебирает каждый элемент массива
             foreach (IDrawable obj in objects)
             {
                 obj.Draw();
             }
+
             Console.ReadKey();
         }
     }

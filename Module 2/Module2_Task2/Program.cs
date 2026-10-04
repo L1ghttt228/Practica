@@ -2,94 +2,84 @@
 
 namespace Task2Shapes
 {
-    // abstract class — базовый шаблон без создания объекта напрямую
+    // абстрактный класс Shape: базовый шаблон для фигур, объект которого нельзя создать напрямую
     abstract class Shape
     {
-        // abstract method — метод без реализации
-        // Наследники обязаны его реализовать
-        public abstract double Area();
-
-        // abstract method для периметра
-        public abstract double Perimeter();
+        public abstract double Area(); // абстрактный метод площади, производные классы обязаны его реализовать
+        public abstract double Perimeter(); // абстрактный метод периметра
     }
 
-    // Наследование класса Circle от Shape
+    // производный класс Circle наследует класс Shape
     class Circle : Shape
     {
         private double radius;
 
-        // Конструктор круга
+        // конструктор вызывается оператором new при создании объекта
         public Circle(double radius)
         {
             this.radius = radius;
         }
 
-        // override — замена метода базового класса
+        // override заменяет абстрактный метод базового класса
         public override double Area()
         {
-            // Формула площади круга
-            return Math.PI * radius * radius;
+            return Math.PI * radius * radius; 
         }
 
-        // override — замена метода базового класса
+        // override заменяет абстрактный метод базового класса
         public override double Perimeter()
         {
-            // Формула длины окружности
             return 2 * Math.PI * radius;
         }
     }
 
-    // Наследование класса Rectangle от Shape
+    // производный класс Rectangle наследует класс Shape
     class Rectangle : Shape
     {
-        private double width;
+        private double width; 
         private double height;
 
-        // Конструктор прямоугольника
+        // конструктор принимает размеры и записывает их в поля объекта
         public Rectangle(double width, double height)
         {
-            this.width = width;
-            this.height = height;
+            this.width = width; 
+            this.height = height; 
         }
 
-        // override — замена метода базового класса
+        // override заменяет абстрактный метод базового класса
         public override double Area()
         {
-            // Формула площади прямоугольника
-            return width * height;
+            return width * height; 
         }
 
-        // override — замена метода базового класса
+        // override заменяет абстрактный метод базового класса
         public override double Perimeter()
         {
-            // Формула периметра прямоугольника
-            return 2 * (width + height);
+            return 2 * (width + height); 
         }
     }
 
+    // класс Program содержит точку входа в программу
     class Program
     {
         static void Main(string[] args)
         {
-            // Полиморфизм: переменная типа Shape хранит объект наследника
-            Shape circle = new Circle(3.0);
-            Shape rectangle = new Rectangle(5.0, 6.0);
+            Shape circle = new Circle(3.0); // переменная базового типа Shape хранит объект наследника Circle
+            Shape rectangle = new Rectangle(5.0, 6.0); // переменная базового типа Shape хранит объект наследника Rectangle
 
-            // Массив объектов базового типа
-            Shape[] shapes = new Shape[]
+            Shape[] shapes = new Shape[] // объявление массива объектов базового типа
             {
-                circle,
-                rectangle
+                circle, 
+                rectangle 
             };
 
-            // foreach — перебор элементов массива
+            // цикл foreach перебирает каждый элемент массива shapes
             foreach (Shape shape in shapes)
             {
-                // GetType().Name — получение имени реального класса объекта
-                Console.WriteLine(
-                    $"{shape.GetType().Name}: площадь = {shape.Area():F2}, " +
-                    $"периметр = {shape.Perimeter():F2}");
+                
+                Console.WriteLine($"{shape.GetType().Name}: площадь = {shape.Area():F2}, периметр = {shape.Perimeter():F2}");
             }
+
             Console.ReadKey();
         }
     }

@@ -2,15 +2,14 @@
 
 namespace Task3Composition
 {
-    // Класс автора
+    // класс Author описывает автора книги
     class Author
     {
-        // get — чтение значения
-        // private set — смена значения только внутри класса
+        // свойства с private set разрешают изменение значения только внутри класса
         public string Name { get; private set; }
         public int BirthYear { get; private set; }
 
-        // Конструктор автора
+        // конструктор инициализирует свойства автора
         public Author(string name, int birthYear)
         {
             Name = name;
@@ -18,17 +17,14 @@ namespace Task3Composition
         }
     }
 
-    // Класс книги
-    // Композиция: книга содержит объект автора
+    // класс Book описывает книгу, содержит объект автора
     class Book
     {
         public string Title { get; private set; }
         public int Year { get; private set; }
+        public Author Author { get; private set; } // свойство типа Author хранит ссылку на объект автора
 
-        // Поле типа Author — связь книги и автора
-        public Author Author { get; private set; }
-
-        // Конструктор книги
+        // конструктор принимает название, год и объект автора
         public Book(string title, int year, Author author)
         {
             Title = title;
@@ -36,12 +32,10 @@ namespace Task3Composition
             Author = author;
         }
 
-        // Вывод информации о книге
+        // метод выводит информацию о книге и её авторе
         public void PrintInfo()
         {
-            Console.WriteLine(
-                $"Книга: {Title}, год выпуска: {Year}, " +
-                $"автор: {Author.Name}, год рождения автора: {Author.BirthYear}");
+            Console.WriteLine($"Книга: {Title}, год выпуска: {Year}, автор: {Author.Name}, год рождения автора: {Author.BirthYear}");
         }
     }
 
@@ -49,15 +43,13 @@ namespace Task3Composition
     {
         static void Main(string[] args)
         {
-            // Создание объектов авторов
             Author author1 = new Author("Фёдор Достоевский", 1821);
             Author author2 = new Author("Лев Толстой", 1828);
 
-            // Создание книг и связь с авторами
+            // при создании книги объект автора передаётся в конструктор, устанавливая композиционную связь
             Book book1 = new Book("Преступление и наказание", 1866, author1);
             Book book2 = new Book("Война и мир", 1869, author2);
 
-            // Вывод информации о книгах
             book1.PrintInfo();
             book2.PrintInfo();
 
